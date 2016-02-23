@@ -3,14 +3,15 @@
 
 from scr.diff import diff
 
-s = "Самоделкин в космосе_R96_(1979 г.)"
-s2 = "Самоделкин в космосе (1979).djvu"
+sss = "Азбука нравственности (1989)"
+xxx = "Азбука"
 
-noise = ['_R96_', '\bг\b']
+noise = ['_R96_', '(?<=\d\d)г']
 
 
-lst1 = diff.canonize(s, diff.pattern(noise))
-lst2 = diff.canonize(s2, diff.pattern(noise))
-
+lst1 = sorted(diff.canonize(sss, diff.pattern(noise)))
+lst2 = sorted(diff.canonize(xxx, diff.pattern(noise)))
 print(lst1)
 print(lst2)
+
+
