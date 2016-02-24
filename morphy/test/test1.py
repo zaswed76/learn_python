@@ -8,14 +8,22 @@ from diatools.lib import files_tool
 from morphy.lib import diff
 
 pat = re.compile(r"""
+        Рус-Eng|
+        первая|
+        вторая|
+        цветной|
+        кадров|
         [\W_]+|
         R96|
         чб|
-        2ч|2ч|
-        [её]+|
+        2ч|3ч|
         audio|
+        часть|
+        text|
         (?<=\d\d)г|
-        \b\D{1,2}\b
+        \b\D{1,2}\b|
+        \d
+
                      """, re.VERBOSE | re.I)
 
 
@@ -26,7 +34,7 @@ def source_lst():
 
 
 def pat_lst():
-    fl = "/home/sergk/project/diafilmtools/diafilmtools/examples/содержание.txt"
+    fl = "/home/sergk/project/learn_python/morphy/test/содержание2.txt"
     with open(fl, "r") as f:
         return [x.strip() for x in f]
 
@@ -41,4 +49,5 @@ def canonize_lst(lst, pat, norm):
 pat_set = canonize_lst(pat_lst(), pat, 1)
 print(len(pat_set))
 source_set = canonize_lst(source_lst(), pat, 1)
-print(len(pat_set - source_set))
+res = pat_set - source_set
+print(res, len(res), sep="\n-----------------------\n")

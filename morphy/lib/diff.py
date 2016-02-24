@@ -18,9 +18,8 @@ def not_noise(source, pattern, cut_ext=False):
     :param cut_ext: bool
     :return: str
     """
-    if cut_ext:
-        source = os.path.splitext(source)[0]
-    return pattern.sub(" ", source)
+    res = pattern.sub(" ", source)
+    return res.replace("ё", "е")
 
 
 def canonize(source, pattern, cut_ext=False, sorted=True, norm=False):
@@ -58,12 +57,16 @@ if __name__ == '__main__':
         [\W_]+|
         R96|
         чб|
+        2ч|3ч|
         audio|
+        часть|
         (?<=\d\d)г|
-        \b\D{1,2}\b
+        \b\D{1,2}\b|
+        \d_
+
                      """, re.VERBOSE | re.I)
-    s = 'Солнце, Месяц и Ворон Воронович (1958)'
-    s2 = 'Солнце Месяц и Ворон Воронович_R96_ (1958 г.)'
+    s = 'Сказка о том, кто ходил страху учиться (1989) [2ч]'
+    s2 = 'Сказка о том, кто ходил страху учиться. Часть 2_R96_ (1989 г.)'
 
     a = wrapper(canonize, s, pat, cut_ext=0, norm=0)
     b = wrapper(canonize, s2, pat, cut_ext=0, norm=0)
