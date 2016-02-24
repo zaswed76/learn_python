@@ -8,11 +8,15 @@ from diatools.lib import files_tool
 from morphy.lib import diff
 
 pat = re.compile(r"""
-        [\W]+|
-        _R96_|
+        [\W_]+|
+        R96|
+        чб|
+        2ч|2ч|
+        [её]+|
+        audio|
         (?<=\d\d)г|
         \b\D{1,2}\b
-                     """, re.VERBOSE)
+                     """, re.VERBOSE | re.I)
 
 
 def source_lst():
@@ -22,17 +26,19 @@ def source_lst():
 
 
 def pat_lst():
-    with open("pat.txt", "r") as f:
+    fl = "/home/sergk/project/diafilmtools/diafilmtools/examples/содержание.txt"
+    with open(fl, "r") as f:
         return [x.strip() for x in f]
 
 
 def canonize_lst(lst, pat, norm):
     res = set()
     for n in lst:
-        res.add(tuple(diff.canonize(n, pat, cut_ext=True, norm=norm)))
+        res.add(tuple(diff.canonize(n, pat, cut_ext=0, norm=norm)))
     return res
 
 
 pat_set = canonize_lst(pat_lst(), pat, 1)
+print(len(pat_set))
 source_set = canonize_lst(source_lst(), pat, 1)
-print(pat_set - source_set)
+print(len(pat_set - source_set))

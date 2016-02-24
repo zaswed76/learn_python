@@ -55,16 +55,18 @@ if __name__ == '__main__':
     import timeit
 
     pat = re.compile(r"""
-        [\W]+|
-        _R96_|
+        [\W_]+|
+        R96|
+        чб|
+        audio|
         (?<=\d\d)г|
         \b\D{1,2}\b
-                     """, re.VERBOSE)
-    s = 'Сказка про Ивашку-глиняшку_R96_ (1982 г.)'
-    s2 = 'Сказка про Ивашку - Глиняшку (1982).jpg'
+                     """, re.VERBOSE | re.I)
+    s = 'Солнце, Месяц и Ворон Воронович (1958)'
+    s2 = 'Солнце Месяц и Ворон Воронович_R96_ (1958 г.)'
 
-    a = wrapper(canonize, s, pat, cut_ext=1, norm=0)
-    b = wrapper(canonize, s2, pat, cut_ext=1, norm=0)
+    a = wrapper(canonize, s, pat, cut_ext=0, norm=0)
+    b = wrapper(canonize, s2, pat, cut_ext=0, norm=0)
     print(a())
     print(b())
 
