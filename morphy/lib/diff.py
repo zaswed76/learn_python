@@ -10,7 +10,7 @@ import pymorphy2
 morph = pymorphy2.MorphAnalyzer()
 
 
-def not_noise(source, pattern, cut_ext=False):
+def not_noise(source, pattern):
     """
     удаляет "шум" исходя из арг. pattern
     :param source: str
@@ -22,16 +22,14 @@ def not_noise(source, pattern, cut_ext=False):
     return res.replace("ё", "е")
 
 
-def canonize(source, pattern, cut_ext=False, sorted=True, norm=False):
+def canonize(source, sorted=True, norm=False):
     """
     удаляет шум и возврашает отсортированный список (по умолчанию)
     :param source:
-    :param pattern:
-    :param cut_ext:
     :param sorted:
     :return:
     """
-    lst = not_noise(source, pattern, cut_ext).split()
+    lst = source.split()
     if norm: lst = normalize(*lst)
     else: lst = [x.lower() for x in lst]
     if sorted: lst.sort()
@@ -68,13 +66,13 @@ if __name__ == '__main__':
     s = 'Сказка о том, кто ходил страху учиться (1989) [2ч]'
     s2 = 'Сказка о том, кто ходил страху учиться. Часть 2_R96_ (1989 г.)'
 
-    a = wrapper(canonize, s, pat, cut_ext=0, norm=0)
-    b = wrapper(canonize, s2, pat, cut_ext=0, norm=0)
+    a = wrapper(canonize, s, pat, cut_ext=0, norm=1)
+    # b = wrapper(canonize, s2, pat, cut_ext=0, norm=1)
     print(a())
-    print(b())
+    # print(b())
 
-    print(timeit.timeit(a, number=2000))
-    print(timeit.timeit(b, number=2000))
+    print(timeit.timeit(a, number=4000))
+    # print(timeit.timeit(b, number=3000))
     # print(timeit.timeit(normalize, number=2000))
 
 

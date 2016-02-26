@@ -1,0 +1,7 @@
+
+
+[border]
+color = red
+
+[bg]
+color_bg = grey
