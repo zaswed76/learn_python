@@ -1,0 +1,21 @@
+
+/*button*/
+button {
+    background: grey;
+    border: 1px solid gray;
+}
+
+
+label {
+    background: grey;
+}
+
+label:hover {
+    background: grey;
+}
+/*button*/
+button:hover {
+
+    border: 1px solid gray;
+    background: grey;
+}
