@@ -1,11 +1,8 @@
 
-/*button*/
 button {
     background: grey;
     border-color: gray;
 }
-
-
 label {
     background: grey;
 }
@@ -13,7 +10,7 @@ label {
 label:hover {
     background: grey;
 }
-/*button*/
+
 button:hover {
 
     border: 1px solid gray;
