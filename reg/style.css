@@ -1,7 +1,7 @@
 
 button {
-    background: grey;
-    border-color: gray;
+    background: red;
+    border-color: red;
 }
 label {
     background: grey;
@@ -9,10 +9,11 @@ label {
 
 label:hover {
     background: grey;
+    border-color: gray;
 }
 
 button:hover {
 
-    border: 1px solid gray;
-    background: grey;
+    border-color: red;
+    background: red;
 }

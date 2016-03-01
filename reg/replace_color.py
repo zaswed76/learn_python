@@ -8,6 +8,10 @@ def style():
     with open("style.css", "r") as f:
         return f.read()
 
+def write_style(new_style):
+    with open("style.css", "w") as f:
+        f.write(new_style)
+
 # s = '''
 # button {
 #     background: grey;
@@ -30,14 +34,14 @@ def style():
 s = style()
 
 pat = re.compile('''
-(.*)
-(button)
-(.*)
-(border-color\W\s+)
-(\w+)
-(.*)
+(button
+.+?
+(?<=border-color\:))
+.+?
 
+(\w+)
 ''', re.VERBOSE | re.DOTALL | re.IGNORECASE)
 
-print(pat.sub(r'\1\2\3\4red\6', s))
-# print(pat.findall(s))
+snew = pat.sub(r'\1 red', s)
+
+write_style(snew)
